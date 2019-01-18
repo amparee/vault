@@ -2,6 +2,8 @@ package com.vault.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.vault.entity.Employee;
 
 public interface EmployeeService {

@@ -13,12 +13,15 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.lang.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "EMPLOYEE")
 public class Employee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	@NotNull
 	private int id;
 
@@ -38,6 +41,7 @@ public class Employee {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "job")
+	@JsonIgnore
 	private Job job;
 
 	private double salary;
@@ -49,6 +53,7 @@ public class Employee {
 	@Nullable
 	@ManyToOne
 	@JoinColumn(name = "department")
+	@JsonIgnore
 	private Department department;
 
 	public int getId() {
