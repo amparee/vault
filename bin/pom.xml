@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.vault</groupId>
 	<artifactId>interview</artifactId>
-	<version>1.0</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>interview</name>
-	<description>Spring boot api for interview</description>
+	<description>Spring boot api</description>
 
 	<properties>
 		<java.version>1.8</java.version>

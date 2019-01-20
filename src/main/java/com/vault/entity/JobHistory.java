@@ -17,8 +17,11 @@ public class JobHistory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull
 	private int id;
+	@NotNull
 	private LocalDate startDate;
+	@NotNull
 	private LocalDate endDate;
+	@NotNull
 	private int jobId;
 	private int departmentId;
 

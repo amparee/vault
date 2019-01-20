@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "DEPARTMENT")
 public class Department {
@@ -28,7 +30,8 @@ public class Department {
 	private int locationId;
 
 	@OneToMany
-	@JoinColumn(name = "employees")
+	@JoinColumn(name = "id")
+	@JsonIgnore
 	private List<Employee> employees;
 
 	public int getId() {
