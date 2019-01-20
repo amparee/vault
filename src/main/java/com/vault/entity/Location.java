@@ -1,11 +1,18 @@
 package com.vault.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "LOCATION")
@@ -15,10 +22,20 @@ public class Location {
 	@NotNull
 	private int id;
 	private String streetAddress;
+
 	private String postalCode;
+
 	private String city;
+
 	private String stateProvince;
-	private int countryId;
+
+	@ManyToOne
+	@JoinColumn(name = "country_id")
+	private Country country;
+	
+	@OneToMany(mappedBy="location")
+	@JsonIgnore
+	private List<Department> departments;
 
 	public int getId() {
 		return id;
@@ -60,18 +77,12 @@ public class Location {
 		this.stateProvince = stateProvince;
 	}
 
-	public int getCountryId() {
-		return countryId;
+	public Country getCountry() {
+		return country;
 	}
 
-	public void setCountryId(int countryId) {
-		this.countryId = countryId;
-	}
-
-	@Override
-	public String toString() {
-		return "Location [id=" + id + ", streetAddress=" + streetAddress + ", postalCode=" + postalCode + ", city="
-				+ city + ", stateProvince=" + stateProvince + ", countryId=" + countryId + "]";
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 
 }

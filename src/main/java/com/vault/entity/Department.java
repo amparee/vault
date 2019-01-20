@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -27,7 +28,9 @@ public class Department {
 
 	private int managerId;
 
-	private int locationId;
+	@ManyToOne
+	@JoinColumn(name="location_id")
+	private Location location;
 
 	@OneToMany
 	@JoinColumn(name = "id")
@@ -58,12 +61,12 @@ public class Department {
 		this.managerId = managerId;
 	}
 
-	public int getLocationId() {
-		return locationId;
+	public Location getLocation() {
+		return location;
 	}
 
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	public List<Employee> getEmployees() {
@@ -77,7 +80,7 @@ public class Department {
 	@Override
 	public String toString() {
 		return "Department [id=" + id + ", departmentName=" + departmentName + ", managerId=" + managerId
-				+ ", locationId=" + locationId + "]";
+				+ ", location=" + location + ", employees=" + employees + "]";
 	}
 
 }
