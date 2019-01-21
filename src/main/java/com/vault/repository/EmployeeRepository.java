@@ -13,6 +13,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	public void delete(Employee employee);
 
 	public List<Employee> findAll();
+	
+	public List<Employee> findByJobAndManagerIdAndLastName(Employee employee);
 
 	public Optional<Employee> findById(int employee);
 
