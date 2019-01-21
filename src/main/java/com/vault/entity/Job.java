@@ -29,6 +29,10 @@ public class Job {
 	@OneToMany(mappedBy = "job")
 	@JsonIgnore
 	private List<Employee> employees;
+	
+	@OneToMany(mappedBy="job")
+	@JsonIgnore
+	private List<JobHistory> jobHistory;
 
 	public int getId() {
 		return id;
@@ -60,6 +64,14 @@ public class Job {
 
 	public void setMaxSalary(int maxSalary) {
 		this.maxSalary = maxSalary;
+	}
+
+	public List<JobHistory> getJobHistory() {
+		return jobHistory;
+	}
+
+	public void setJobHistory(List<JobHistory> jobHistory) {
+		this.jobHistory = jobHistory;
 	}
 
 	public List<Employee> getEmployees() {

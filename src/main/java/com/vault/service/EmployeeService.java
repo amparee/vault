@@ -14,6 +14,6 @@ public interface EmployeeService {
 
 	public abstract Employee save(Employee employee);
 
-	public abstract void delete(Long id);
+	public abstract boolean delete(int id);
 
 }

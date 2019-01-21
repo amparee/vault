@@ -36,6 +36,11 @@ public class Department {
 	@JoinColumn(name = "id")
 	@JsonIgnore
 	private List<Employee> employees;
+	
+	@OneToMany
+	@JoinColumn(name = "id")
+	@JsonIgnore
+	private List<JobHistory> jobHistory;
 
 	public int getId() {
 		return id;

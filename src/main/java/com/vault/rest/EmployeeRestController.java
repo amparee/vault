@@ -28,13 +28,11 @@ public class EmployeeRestController {
 	public List<Employee> getEmployees() {
 		return employeeService.listEmployee();
 	}
-	
+
 	@GetMapping("/{id}")
 	public Employee getEmployeeById(@PathVariable int id) {
 		return employeeService.findById(id);
 	}
-	
-	
 
 	@PostMapping
 	public Employee create(@RequestBody Employee employee) {
@@ -47,9 +45,8 @@ public class EmployeeRestController {
 	}
 
 	@DeleteMapping(path = { "/delete/{id}" })
-	public String delete(@PathVariable("id") Long id) {
-		employeeService.delete(id);
-		return "ok";
+	public String delete(@PathVariable("id") int id) {
+		return "User was deleted: " + employeeService.delete(id);
 	}
 
 }

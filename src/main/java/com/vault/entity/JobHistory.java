@@ -6,8 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "JOB_HISTORY")
@@ -21,9 +25,20 @@ public class JobHistory {
 	private LocalDate startDate;
 	@NotNull
 	private LocalDate endDate;
+
+	@ManyToOne
+	@JoinColumn(name = "job_id")
 	@NotNull
-	private int jobId;
-	private int departmentId;
+	private Job job;
+
+	@ManyToOne
+	@JoinColumn(name = "department_id")
+	private Department department;
+
+	@ManyToOne
+	@JoinColumn(name = "employee_id")
+	@JsonIgnore
+	private Employee employee;
 
 	public int getId() {
 		return id;
@@ -49,26 +64,29 @@ public class JobHistory {
 		this.endDate = endDate;
 	}
 
-	public int getJobId() {
-		return jobId;
+	public Job getJob() {
+		return job;
 	}
 
-	public void setJobId(int jobId) {
-		this.jobId = jobId;
+	public void setJob(Job job) {
+		this.job = job;
 	}
 
-	public int getDepartmentId() {
-		return departmentId;
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void setDepartmentId(int departmentId) {
-		this.departmentId = departmentId;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
-	@Override
-	public String toString() {
-		return "JobHistory [id=" + id + ", startDate=" + startDate + ", endDate=" + endDate + ", jobId=" + jobId
-				+ ", departmentId=" + departmentId + "]";
+	public Employee getEmployee() {
+		return employee;
 	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
 
 }
