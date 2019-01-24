@@ -9,7 +9,7 @@ public interface EmployeeService {
 
 	public abstract List<Employee> listEmployee();
 
-	public abstract List<Employee> listEmployeeByJobManagerAndLastName(int jobId, int managerId, String lastName, Optional<Integer> pagination);
+	public abstract List<Employee> listEmployeeByJobManagerAndLastName(int jobId, int managerId, String lastName, int pagination);
 
 	public abstract Employee findById(int id);
 

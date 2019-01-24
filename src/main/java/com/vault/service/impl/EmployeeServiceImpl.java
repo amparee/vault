@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.vault.entity.Employee;
-import com.vault.entity.Job;
 import com.vault.repository.EmployeeRepository;
 import com.vault.service.EmployeeService;
 
@@ -17,9 +18,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
+	private static final int DEFAULT_PAGINATION = 0;
+
 	@Override
 	public List<Employee> listEmployee() {
-		return employeeRepository.findAll();
+		
+		List<Employee> employees = employeeRepository.findAll();
+		
+		employees.stream().sorted((p1, p2) -> p1.getHireDate().compareTo(p2.getHireDate()));
+		
+		return employees;
 	}
 
 	@Override
@@ -52,26 +60,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<Employee> listEmployeeByJobManagerAndLastName(int jobId, int managerId, String lastName,
-			Optional<Integer> pagination) {
+			int pagination) {
 
-		int currentPage = pagination.orElse(1);
+		int currentPage = (pagination < 0) ? DEFAULT_PAGINATION : pagination - 1;
 		int size = 10;
-		int startItem = currentPage * size;
-		List<Employee> employees;
+		Pageable pageable = new PageRequest(currentPage, size);
 
-		Employee employee = new Employee();
-		Job job = new Job();
+		List<Employee> employees = null;
 
-		job.setId((jobId == 0) ? jobId : null);
+		employees = employeeRepository.findByJobAndManagerIdAndLastName(jobId, managerId, lastName, pageable);
 
-		employee.setJob(job);
-		employee.setManagerId(managerId);
-		employee.setLastName(lastName);
+		employees.stream().sorted((p1, p2) -> p1.getHireDate().compareTo(p2.getHireDate()));
 
-		employees = employeeRepository.findByJobAndManagerIdAndLastName(employee);
-
-		employees.stream().sorted( (p1,p2) -> p1.getHireDate().compareTo(p2.getHireDate()));
-		
 		return employees;
 	}
 

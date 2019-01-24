@@ -30,20 +30,22 @@ public class EmployeeRestController {
 	public List<Employee> getEmployees() {
 		return employeeService.listEmployee();
 	}
-	
+
 	@GetMapping("/{id}")
 	public Employee getEmployeeById(@PathVariable int id) {
 		return employeeService.findById(id);
 	}
 
 	@GetMapping("/get-employees-parameters")
-	public List<Employee> getEmployeeJobManagerAndLastName( @RequestParam(value = "job" , required = false) int jobId,
-															@RequestParam(value = "manager", required = false) int managerId,
-															@RequestParam("last-name") String lastName,
-															@RequestParam(value = "pagination", required = false) Optional<Integer> pagination){
-		return employeeService.listEmployeeByJobManagerAndLastName(jobId, managerId, lastName, pagination);	
+	public List<Employee> getEmployeeJobManagerAndLastName(
+			@RequestParam(name = "job", required = false) Optional<Integer> jobId,
+			@RequestParam(name = "manager", required = false) Optional<Integer> managerId,
+			@RequestParam(name = "last-name", required = false) String lastName,
+			@RequestParam(name = "pagination", required = false) Optional<Integer> pagination) {
+		return employeeService.listEmployeeByJobManagerAndLastName(jobId.orElse(-1), managerId.orElse(-1), lastName,
+				pagination.orElse(-1));
 	}
-	
+
 	@PostMapping
 	public Employee create(@RequestBody Employee employee) {
 		return employeeService.save(employee);
