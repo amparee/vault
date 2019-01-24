@@ -29,7 +29,7 @@ public class Department {
 
 	private int managerId;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="location_id")
 	private Location location;
 
