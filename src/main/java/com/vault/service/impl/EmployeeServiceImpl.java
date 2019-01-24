@@ -2,6 +2,7 @@ package com.vault.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		List<Employee> employees = employeeRepository.findAll();
 		
-		employees.stream().sorted((p1, p2) -> p1.getHireDate().compareTo(p2.getHireDate()));
+		employees = employees.stream().sorted((p1, p2) -> p1.getHireDate().compareTo(p2.getHireDate())).collect(Collectors.toList());
 		
 		return employees;
 	}
